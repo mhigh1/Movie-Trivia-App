@@ -1,0 +1,21 @@
+.curtain-top {
+    position: relative; 
+    z-index: 1; 
+    background-image:url(../images/curtain-top-alt.png); 
+    height: 62px; 
+}
+
+.curtain-side {
+    position: relative;
+    top: -5px;
+    background-image:url(../images/curtain-side.png);
+}
+
+.backstage {
+    position: relative;
+    top: -5px;
+}
+
+.theater-screen {
+    min-height: 300px;
+}
