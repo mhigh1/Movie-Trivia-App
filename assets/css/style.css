@@ -4,24 +4,14 @@ html {
 }
 
 body {
-    margin-bottom: 50px; /* Margin bottom by footer height */
-    background-color: #1B1E21; /* AMC Theater Theme */
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px; /* Set the fixed height of the footer here */
-    line-height: 50px; /* Vertically center the text there */
-    background-color: #dee2e6;
-    font-size: .85em;
+    margin-bottom: 50px;
+    background-color: #1B1E21;
 }
 
 #answers {
-    background-image: url(../images/pattern3.png); /* AMC Theater Theme */
+    background-image: url(../images/pattern3.png);
     background-position: center;
-    border-color: #b51f24 !important; /* AMC Theater Theme */
+    border-color: #b51f24 !important;
 }
 
 /* Theater Style */
@@ -49,7 +39,7 @@ body {
     background-color: white;
 }
 
-.theater-screen img {
+.loader-img {
     width: 100%;
     object-fit: cover;
 }
