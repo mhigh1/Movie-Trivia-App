@@ -38,4 +38,10 @@ body {
 
 .theater-screen {
     min-height: 300px;
+    background-color: white;
+}
+
+.theater-screen img {
+    width: 100%;
+    object-fit: cover;
 }
