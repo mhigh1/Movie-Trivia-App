@@ -5,6 +5,7 @@ html {
 
 body {
     margin-bottom: 50px; /* Margin bottom by footer height */
+    background-color: #1B1E21; /* AMC Theater Theme */
 }
 
 .footer {
@@ -15,6 +16,12 @@ body {
     line-height: 50px; /* Vertically center the text there */
     background-color: #dee2e6;
     font-size: .85em;
+}
+
+#answers {
+    background-image: url(../images/pattern3.png); /* AMC Theater Theme */
+    background-position: center;
+    border-color: #b51f24 !important; /* AMC Theater Theme */
 }
 
 /* Theater Style */
@@ -34,6 +41,7 @@ body {
 .backstage {
     position: relative;
     top: -5px;
+    background-color: #131517 !important;
 }
 
 .theater-screen {
