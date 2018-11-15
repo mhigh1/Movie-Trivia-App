@@ -11,9 +11,6 @@ const movieInfo = function (movieName) {
     const previewUrl = movie.previewUrl;
 
     $('#modalTitle').html(`<h2>${trackName}</h2>`);
-    $('.modal-body').html(`<video src="${previewUrl}" type="video/x-m4v" controls="true" />`);
+    $('.modal-body').html(`<video src="${previewUrl}" type="video/x-m4v" controls="true" autoplay />`);
   }); 
 }
-
-
-
