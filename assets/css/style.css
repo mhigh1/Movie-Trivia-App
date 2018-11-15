@@ -43,3 +43,8 @@ body {
     width: 100%;
     object-fit: cover;
 }
+
+/* Modal Dialog */
+.modal-dialog video {
+    width: 100%;
+}
