@@ -1,139 +1,204 @@
 // Array to store Movie Title and Plot from API query
 var quizQuestions = [];
 MaxNumInQList = 4 ;
-
-/* const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-  } */
+attemptedTitles = [];
+attemptedPlots = [] ; 
+attemptedYourTitles = [] ; 
+attemptedAnswers = [] ; 
+var correctCount = 0;
+const numQuestions = 10;
+const selectedFour = [] ;
+ButtonText= "SelectThis";
+hasCodeRunBefore = false ; 
+const removeThisElementById = function(MyId)
+ {
+   targetElement = document.getElementById(MyId) ; 
+   if ( targetElement !== null ) 
+    {
+      // element does exist lets delete it 
+            targetElement.parentNode.removeChild(targetElement);
+    }
+ };
+// do initialze the game
+window.addEventListener('load', function () {
+    // do stuff when the page has loaded
+    getMovieQuestions();
+}, false);
 const getMovieQuestions = function() {
-    const numQuestions = 10;
     const movieQuiz = [];
     quizQuestions.length = 0 ;
-    // const MaxNumInQList = 4 ;
-
-    // Select X number of movies from movieList array and add them to the movieQuiz array
-    for(var i=0; i < numQuestions; i++) {
-        movieQuiz.push(movieList[Math.floor(Math.random() * movieList.length)]);
-    }
-    // lets get 
-    //  one correct pair (plot and title) 
-    // and three incorrect titles
-    // Provide plot and all answers to the user to select one of them 
-    // 
-    // select one random out of the number of questions we have selected
-    // create an array of 4 
-
-    // const MaxQs = 4;
     const SelectrandomOutOfMax = [];
     SelectrandomOutOfMax.length = 0 ; 
-    while ( SelectrandomOutOfMax.length < MaxNumInQList )
+
+
+    // Select X number of movies from movieList array and add them to the movieQuiz array
+        
+    // get 10 unique numbers from long list we have
+    while ( SelectrandomOutOfMax.length < numQuestions )
      {
          currentStart=0;
          TempSelectrandomOutOf = Math.floor(Math.random() * movieList.length );
-         // console.log("this is"+TempSelectrandomOutOf);
          if ( SelectrandomOutOfMax.indexOf(TempSelectrandomOutOf) == -1 ) { SelectrandomOutOfMax.push(TempSelectrandomOutOf) ;  }
-         // SelectrandomOutOfMax.push(TempSelectrandomOutOf) ; 
-         // console.log("another "+SelectrandomOutOfMax.length);    
      }
-    
-    console.log('new list');
     quizQuestions.length = 0 ; 
-    for ( i = 0; ( i < MaxNumInQList ) ; i++) {
-        queryURL = `https://www.omdbapi.com/?apikey=8acace67&t=${movieQuiz[i]}`;
+    for ( i = 0; ( i < numQuestions ) ; i++) {
+        queryURL = `https://www.omdbapi.com/?apikey=8acace67&t=${movieList[SelectrandomOutOfMax[i]]}`;
+
         $.ajax({
             url: queryURL,
             method: 'GET'
         }).then(function (response) {
             if ( typeof response.Title === 'undefined' || ( quizQuestions.indexOf(response.title) !== -1 )  ) 
-             { console.log(" some issue" + response.Title+" |"+response.Plot); getMovieQuestions() ; } 
+             { 
+               // simply recurse because some undefined 
+               getMovieQuestions() ; 
+             } 
             else 
-             { // console.log(response.Title+" | "+response.Plot); 
-               var objMovie = {
-                Title: response.Title,
-                Plot: response.Plot,
+             { 
+                var objMovie = {
+                myTitle: response.Title,
+                myPlot: response.Plot,
                 };
                quizQuestions.push(objMovie);
-               // console.log(objMovie.Title);
+              
                if ( quizQuestions.length === i ) { 
-                   for(j=0;j<quizQuestions.length;j++) { console.log(" hi there 1 " + j + " "+ quizQuestions[j].Title) ; } 
+                   for(j=0;j<quizQuestions.length;j++) 
+                    { /* console.log(" hi there 1 " + j + " "+ quizQuestions[j].myTitle+"|"+objMovie.myTitle) ; */ } 
                    listit(); }    
             }
         });
     }
 };
 
- listit = function(){
+ listit = function()
+  {
 
     // get a random pair out of shortlist 
-    var SelectedHonor = Math.floor(Math.random() * MaxNumInQList);
-    console.log(" at end " + " | " + SelectedHonor );
-    if ( quizQuestions[SelectedHonor]  !== undefined ) {
-    // console.log(" at end " + " | " + SelectedHonor + " | " + quizQuestions[SelectedHonor].Title + " | "+quizQuestions[SelectedHonor].Plot);
-    // console.log(" here finally " + MaxNumInQList + " " + SelectedHonor + " " + quizQuestions[SelectrandomOutOfMax[0]].mytitle+"|" + quizQuestions[SelectrandomOutOfMax[1]].mytitle + "|" + quizQuestions[SelectrandomOutOfMax[2]].mytitle + "|" + quizQuestions[SelectrandomOutOfMax[3]].mytitle );
+    // set the short list to zero size here 
+    selectedFour.length = 0 ; 
+    // select one item that is correct title and plot
+    var SelectedHonor = Math.floor(Math.random() * numQuestions);
+ 
     
-    // setup the plot 
-    // commented timebeing for sake of jquery
-
     
-    /* var ChooseButton = document.createElement("TEXT");     // Create a buttonelement
-    TempButtonId =  'MyText' ; 
-    var targetElement = document.getElementById(TempButtonId) ; 
+    if ( quizQuestions[SelectedHonor]  !== undefined ) 
+     {
+      // after confirming it is not undefined push it to the array of 4 
+      selectedFour.push(SelectedHonor);
+      // now select other three as summy titles
+      // get three more from the list of 10 but not duplicated
+      while ( selectedFour.length < MaxNumInQList )
+       {
+        tempHold= Math.floor(Math.random() * numQuestions);
+        // make sure it is not repated in the array 
+        if ( selectedFour.indexOf(tempHold) == -1 ) { selectedFour.push(tempHold) ;  }
 
-    if ( targetElement !== null ) {
-        // element does exist lets delete it 
-        targetElement.parentNode.removeChild(targetElement);
-    }
-    ChooseButton.id = TempButtonId ; 
-    var t = document.createTextNode(" "+quizQuestions[SelectedHonor].Plot+" ") ;   // Create a text node
-    ChooseButton.appendChild(t);                                          // Append the text to <p>
-    document.getElementById("movieScreen").appendChild(ChooseButton);           // Append <p> to <div> with id="myDIV" 
-    // end of setting up the plot
-    */
-    $('#movieScreen').html(`<p class="p-3" id="MyText">${quizQuestions[SelectedHonor].Plot}</p>`);
+      }
 
-    console.log("here " + quizQuestions[0].Title);    
-    for(ButtonsInd=0; ButtonsInd < MaxNumInQList ; ButtonsInd++) {
-        var TempButtonId =  'SelectThis'+ ButtonsInd ; 
-        // rremove the button if it exists 
-        targetElement = document.getElementById(TempButtonId) ; 
-        if ( targetElement !== null ) {
-            // element does exist lets delete it 
-            targetElement.parentNode.removeChild(targetElement);
-        }
-        // add a button      
-        /* 
-        ChooseButton = document.createElement("BUTTON");     // Create a buttonelement
-        ChooseButton.setAttribute("onclick","OnSelection(this)");
+      // get one random number and swap the item so that the honored title is not in the begining always 
 
-        ChooseButton.id =TempButtonId ; 
-        t = document.createTextNode(" "+quizQuestions[ButtonsInd].Title+" ") ;   // Create a text node
-        ChooseButton.appendChild(t);                                          // Append the text to <p>
-        document.getElementById("answers").prepend(ChooseButton);           // Append <p> to <div> with id="myDIV" 
-        */
-        $('#answers').prepend(`<button class="p-3" onclick="OnSelection(this)" id="`+TempButtonId+`">${quizQuestions[ButtonsInd].Title}</button>`);
+      tempHold= Math.floor(Math.random() * MaxNumInQList);
+      // swap the last item with the one in hand i.e. tempHold
+      kk=selectedFour[tempHold];  selectedFour[tempHold]=selectedFour[0]; selectedFour[0] = kk ; 
 
-        console.log("here " + quizQuestions[ButtonsInd].Title);      
+      // now display the plot that was selected 
+      $('#movieScreen').html(`<p class="p-3" id="MyPlot">${quizQuestions[SelectedHonor].myPlot}</p>`);
+    
 
-    } }
-};
+      // now set all the buttons with the text 
+
+      for(ButtonsInd=0; ButtonsInd < MaxNumInQList ; ButtonsInd++) 
+       {
+        var TempButtonId =  ButtonText + ButtonsInd ; 
+        // remove the button if it exists 
+        removeThisElementById(TempButtonId);
+        // set the button with answer number appended for all buttons         
+        $('#answers').prepend(`<button class="p-3" onclick="OnSelection(this)" id="`+TempButtonId+`">${quizQuestions[selectedFour[ButtonsInd]].myTitle}</button>`);
+
+
+       }
+      // check and remove the dice for change set 
+      // this button allows you to change the set of 10 
+      removeThisElementById("Dice1");
+      // now add a dice for getting a new set 
+      $('#answers').append(`<button class="p-3" title="select this for getting new set of 10" onclick="getMovieQuestions()" id="Dice1">ChangeSet</button>`);
+     }
+  };
 //Prep = function() { getMovieQuestions();  listit();};
-const OnSelection = function(link) {
-    var tempText = link.innerText ; 
-    // alert("hi there "+tempText);
-    checkIfItMatches(tempText);
+const OnSelection = function(link) 
+{
+  var tempText = link.innerText ; 
+  // check if the answer matches and further update the conters etc.
+  checkIfItMatches(tempText);
 };
 
-const checkIfItMatches = function(thistext) {
-    TempButtonId =  'MyText' ; 
-    var TexttargetElement = document.getElementById(TempButtonId).innerText ; 
+const checkIfItMatches = function(thistext) 
+ {
 
-    // alert(TexttargetElement);
+    // locate the element with the MyPlot 
+    TempId =  'MyPlot' ; 
+    // get the inner text and that is the plot 
+    var TexttargetElement = document.getElementById(TempId).innerText ; 
+
+    // assume to begin with that we do not have the correct answer in hand, obviously 
+    // located as non real less than 0 index value
+
     found = false ; 
     located = -1 ;  
-    for(i=0;i<MaxNumInQList;i++) { 
-        if ( ( thistext === quizQuestions[i].Title ) && ( TexttargetElement === quizQuestions[i].Plot  ) )  { found = true ; located = i ; } 
-    }
-    if ( found ) { alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[located].Plot  );} else {alert("better luck next time");} 
+
+    for(i=0;i<MaxNumInQList;i++) 
+     { 
+        // if the text from the button matches for the selected title 
+        // and 
+        // the text we obtained from the inner text of the plot and the one corresponding to that of plot from quizquestions 
+        // remember the array we are working is quizquestions which is of size 10 and not short listed 4 items 
+        // selected four is holding just the index for the random 4 selected from 10
+        if ( ( thistext === quizQuestions[selectedFour[i]].myTitle ) && 
+             ( TexttargetElement === quizQuestions[selectedFour[i]].myPlot  ) )  
+         { found = true ; located = i ; } 
+     }
+    if ( found ===  true ) 
+      { alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlot  );} 
+    else 
+      { alert(" better luck next time"); } 
+    // here the found is correct either true or false
+    attemptedTitles.push(thistext);
+    attemptedAnswers.push(found);
+    attemptedPlots.push(TexttargetElement);
+
+    if ( found == true ) { correctCount = correctCount + 1 ;}
+    lengthArray=attemptedAnswers.length;
+    for(j=0;j<lengthArray;j++) 
+     { 
+       console.log(j+"|"+attemptedTitles[j]+"|"+attemptedAnswers[j]+"|"+attemptedPlots[j]);
+     }
+     // once selected a button a chance is taken disable all the buttons 
+     // only button available is the lets play button
+     DisableSelectButtons();
+     removeThisElementById("MyCounters");
+     
+     $('#SideCurtain').prepend('<text id="MyCounters"> Your Score : correct '+correctCount+' out of '+ lengthArray + '</text>');
+
+     console.log(correctCount+"|"+lengthArray);
+     var thisButton=document.getElementById("Dice"); 
+     
+     // now that we have got the items selected for the first time set the on clisk function to reuse the
+     // selected 10 
+     // user can select another set by using changeset button 
+
+     thisButton.setAttribute("onclick","listit()");
+     thisButton.setAttribute("title","select this for continuing on same set") ; 
+
+
+
 
 };
-//   // $('#movieScreen').html(`<p class="p-3">${quizQuestions[0].Plot}</p>`);
+const DisableSelectButtons = function()
+{
+  // here list all buttons and disable them for heavens sake !  will ya ?
+ 
+  var thisandthat = $('*[id ^= "SelectThis"]');
+  // console.log(thisandthat) ; 
+ 
+  for(i=0;i<thisandthat.length;i++) $(thisandthat[i]).prop('disabled',true);
+};

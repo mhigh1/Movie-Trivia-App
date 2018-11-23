@@ -73,7 +73,7 @@ body {
     margin: 5px ;
 }
 
-*[id ^= 'MyText']{
+*[id ^= 'MyPlot']{
     background-color: gray; /* Green */
     border: none;
     color: white;
@@ -84,4 +84,48 @@ body {
     font-size: 30px;
     border-radius: 15px;
     margin: 5px ;
+}
+*[id ^= 'MyCounters']{
+    background-color: gray; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    border-radius: 10px;
+    margin: 5px ;
+}
+
+
+
+button:disabled,
+button[disabled]{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
