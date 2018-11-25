@@ -10,13 +10,56 @@ const numQuestions = 10;
 const selectedFour = [] ;
 ButtonText= "SelectThis";
 hasCodeRunBefore = false ; 
-QuestionsEasy = false ; 
-const toggleme = function(){
-  if ( QuestionsEasy == true ) 
-   { QuestionsEasy = false ; } 
+QuestionsEasy = true ; 
+const tuneRadioRight = function(MyId,nMybool,nMyTitle) {
+  var tthisandthat = $('*[id ^= MyId]');
+  if ( tthisandthat[0] !== null ) {
+
+  
+  // $(tthisandthat).prop('disabled',nMybool);
+  $(tthisandthat[0]).prop('title',nMyTitle);
+  $(tthisandthat[0]).prop('disabled',nMybool);
+
+  } else { console.log("cound not locate"+MyId);}
+};
+const toggleme = function(MyBool){
+  QuestionsEasy = MyBool;
+  if ( QuestionsEasy === true ) 
+   {
+
+     thisandthat = $('*[id ^= "RadioButtonEasy"]');
+     $(thisandthat).prop('title',"disabled");
+     $(thisandthat).prop('disabled',true);
+
+     thisandthat = $('*[id ^= "RadioButtonTough"]');
+     $(thisandthat).prop('title',"enabled");
+     $(thisandthat).prop('disabled',false);
+     /* tuneRadioRight("RadioButtonEasy",true,"Disabled");
+     tuneRadioRight("RadioButtonTough",false,"Enabaled"); */
+
+     // alert(`its `+QuestionsEasy+` right now will change it to false`) ; 
+     QuestionsEasy = true ;
+
+     } 
   else 
-   { QuestionsEasy = true ; } 
-  alert("QuestionsEasy is " + QuestionsEasy );
+   { 
+    
+    // already selected option is for tough quesitons
+    thisandthat = $('*[id ^= "RadioButtonEasy"]');
+    $(thisandthat).prop('title',"enabled");
+    $(thisandthat).prop('disabled',false); 
+    // tuneRadioRight("RadioButtonEasy",false,"Enabled");
+
+    thisandthat = $('*[id ^= "RadioButtonTough"]');
+    $(thisandthat).prop('title',"disabled"); 
+    $(thisandthat).prop('disabled',true );
+    // tuneRadioRight("RadioButtonTough",true,"Disabled");
+
+    // alert(`its `+QuestionsEasy+` right now will change it to true`);
+    QuestionsEasy = false;
+
+  } 
+  // alert("QuestionsEasy is " + QuestionsEasy ); */
   listit();
 };
 const DoesItMatch = function(ThisString,WithThatString) {
@@ -126,9 +169,10 @@ const getMovieQuestions = function() {
       getFiltered = quizQuestions[SelectedHonor].myPlot ; 
       if ( QuestionsEasy === false )
        { 
+         console.log("will filter");
          getFiltered = MyFilter(quizQuestions[SelectedHonor].myPlot,quizQuestions[SelectedHonor].myTitle);
-         console.log("here filtered" + getFiltered);
-       }
+         // console.log("here filtered" + getFiltered);
+       } else { console.log("will not filter");}
 
       // after confirming it is not undefined push it to the array of 4 
       selectedFour.push(SelectedHonor);
@@ -228,7 +272,7 @@ const checkIfItMatches = function(thistext)
      }
      // once selected a button a chance is taken disable all the buttons 
      // only button available is the lets play button
-     // DisableSelectButtons();
+     DisableSelectButtons();
      removeThisElementById("MyCounters");
      
      $('#SideCurtain').prepend('<text id="MyCounters"> Your Score : correct '+correctCount+' out of '+ lengthArray + '</text>');
