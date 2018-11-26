@@ -4,8 +4,17 @@ html {
 }
 
 body {
-    margin-bottom: 50px;
-    background-color: #1B1E21;
+    background-image: url(../images/bg-reel-1-blk.png);
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+
+main div {
+    background-color: #1B1E21 !important;
+}
+
+.navbar {
+    background-color: #131517 !important;    
 }
 
 #answers {
@@ -36,7 +45,7 @@ body {
 
 .theater-screen {
     min-height: 300px;
-    background-color: white;
+    background-color: white !important;
 }
 
 .loader-img {
