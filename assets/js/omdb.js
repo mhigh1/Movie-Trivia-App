@@ -12,13 +12,14 @@ ButtonText= "SelectThis";
 hasCodeRunBefore = false ; 
 QuestionsEasy = true ; 
 const tuneRadioRight = function(MyId,nMybool,nMyTitle) {
-  var tthisandthat = $('*[id ^= MyId]');
-  if ( tthisandthat[0] !== null ) {
+  // var tthisandthat = $('*[id ^= MyId]');
+  var tthisandthat = document.getElementById(MyId);
+  if ( tthisandthat !== null ) {
 
   
   // $(tthisandthat).prop('disabled',nMybool);
-  $(tthisandthat[0]).prop('title',nMyTitle);
-  $(tthisandthat[0]).prop('disabled',nMybool);
+  $(tthisandthat).prop('title',nMyTitle);
+  $(tthisandthat).prop('disabled',nMybool);
 
   } else { console.log("cound not locate"+MyId);}
 };
@@ -27,15 +28,8 @@ const toggleme = function(MyBool){
   if ( QuestionsEasy === true ) 
    {
 
-     thisandthat = $('*[id ^= "RadioButtonEasy"]');
-     $(thisandthat).prop('title',"disabled as selected, when selected plot displayed is as is ");
-     $(thisandthat).prop('disabled',true);
-
-     thisandthat = $('*[id ^= "RadioButtonTough"]');
-     $(thisandthat).prop('title',"enabled as not yet selected, when selected plot displayed is bit cryptic !");
-     $(thisandthat).prop('disabled',false);
-     /* tuneRadioRight("RadioButtonEasy",true,"Disabled");
-     tuneRadioRight("RadioButtonTough",false,"Enabaled"); */
+     tuneRadioRight("RadioButtonEasy",true,"disabled as selected, when selected plot displayed is as is ");
+     tuneRadioRight("RadioButtonTough",false,"enabled as not selected, when selected plot displayed is bit cryptic !");
 
      // alert(`its `+QuestionsEasy+` right now will change it to false`) ; 
      QuestionsEasy = true ;
@@ -45,16 +39,9 @@ const toggleme = function(MyBool){
    { 
     
     // already selected option is for tough quesitons
-    thisandthat = $('*[id ^= "RadioButtonEasy"]');
-    $(thisandthat).prop('title',"enabled as not yet selected, when selected plot displayed is as is ! ");
-    $(thisandthat).prop('disabled',false); 
-    // tuneRadioRight("RadioButtonEasy",false,"Enabled");
-
-    thisandthat = $('*[id ^= "RadioButtonTough"]');
     
-    $(thisandthat).prop('title',"disabled as selected, when selected plot displayed is bit cryptic !");
-    $(thisandthat).prop('disabled',true );
-    // tuneRadioRight("RadioButtonTough",true,"Disabled");
+    tuneRadioRight("RadioButtonEasy",false,"enabled as not selected, when selected plot displayed is as is ");
+    tuneRadioRight("RadioButtonTough",true,"disabled as selected, when selected plot displayed is bit cryptic !");
 
     // alert(`its `+QuestionsEasy+` right now will change it to true`);
     QuestionsEasy = false;
@@ -261,22 +248,25 @@ const checkIfItMatches = function(thistext)
         // selected four is holding just the index for the random 4 selected from 10
         // MatchPerc = DoesItMatch(TexttargetElement,quizQuestions[selectedFour[i]].myPlot);
         MatchPerc = DoesItMatch(quizQuestions[selectedFour[i]].myPlotU,TexttargetElement);
+        if ( ( TexttargetElement === quizQuestions[selectedFour[i]].myPlotU )  || ( MatchPerc > 75.0 ) ) 
+         { possibleCorrect = i ;}
+
 
         if ( ( thistext === quizQuestions[selectedFour[i]].myTitle ) && 
              ( ( TexttargetElement === quizQuestions[selectedFour[i]].myPlotU )  || ( MatchPerc > 75.0 ) )   )
          { found = true ; 
            located = i ; 
            // alert(MatchPerc+"|"+TexttargetElement+"|"+quizQuestions[selectedFour[i]].myPlot);
-         } 
+         }
         // alert(MatchPerc+"|"+TexttargetElement+"|"+quizQuestions[selectedFour[i]].myPlot);
 
          
          
      }
     if ( found ===  true ) 
-      { alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlotU  );} 
+      { /* alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlotU  ); */} 
     else 
-      { alert(" better luck next time"); } 
+      { /* alert(" better luck next time"); */} 
     // here the found is correct either true or false
     attemptedTitles.push(thistext);
     attemptedAnswers.push(found);
@@ -284,19 +274,16 @@ const checkIfItMatches = function(thistext)
 
     if ( found == true ) { correctCount = correctCount + 1 ;}
     lengthArray=attemptedAnswers.length;
-    /* for(j=0;j<lengthArray;j++) 
-     { 
-       console.log(j+"|"+attemptedTitles[j]+"|"+attemptedAnswers[j]+"|"+attemptedPlots[j]);
-     } */
 
      // once selected a button a chance is taken disable all the buttons 
      // only button available is the lets play button
      DisableSelectButtons();
+
      removeThisElementById("MyCounters");
-     
      $('#SideCurtain').prepend('<text id="MyCounters"> Your Score : correct '+correctCount+' out of '+ lengthArray + '</text>');
 
-     console.log(correctCount+"|"+lengthArray);
+     previewUrl = movieInfo(quizQuestions[selectedFour[possibleCorrect]].myTitle);
+
      var thisButton=document.getElementById("Dice"); 
      
      // now that we have got the items selected for the first time set the on clisk function to reuse the
