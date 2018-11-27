@@ -18,31 +18,38 @@
         </nav>
     </header>
     <main>
-        <div class="container">
+        <div class="container content">
             <div class="row px-3">
                 <div class="col-md-12 m-0 p-0 curtain-top"></div>
-                <div class="col-md-2 m-0 p-0 d-none d-md-block curtain-side">
-                        
-                        <form>
-                                <Button id="RadioButtonEasy" onclick=toggleme(true) class="radio-inline">
-                                  <input type="radio" name="optradio" checked=true>go Easy</Button>
-                                <Button id="RadioButtonTough" onclick=toggleme(false) class="radio-inline">
-                                  <input type="radio" name="optradio" checked=false>go Tough</Button>   
-                        </form>
-                    <!--input class="p-3" id="MyRb" type="radio" name="group1" value="male">Easy<br>
-                    <input id="MyRb" type="radio" name="group1" value="female">Tough<br><br-->
-                </div>
-                <div class="col-md-8 p-3 bg-dark backstage">
-                    <div id="movieScreen" class="text-center theater-screen">
-                        <!-- <img class="loader-img" src="./assets/images/retro-loader.gif"> -->
+                <div class="col-md-2 m-0 p-0 d-none d-md-block curtain-side"></div>
+                <div class="col-md-8 p-3 backstage">
+                    <div id="movieScreen" class="text-center theater-screen align-middle"></div>
+                    <div id="controls" class="text-white pt-3">
+                            <input id="ckbMode" type="checkbox"><label for="ckbMode">Hard Mode</label>
+                    </div>
+                    <div id="scoreCard" class="">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Correct</th>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <th>Questions</th>
+                                    <td>0</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div id="SideCurtain" class="col-md-2 m-0 p-0 d-none d-md-block curtain-side"></div>
+                <div class="col-md-2 m-0 p-0 d-none d-md-block curtain-side"></div>
             </div>
             <div class="row p-3">
-                <div id="answers" class="col-md-12 border bg-light text-center p-3">
-
-                <div type="button" id='Dice' class="button3" title="select this for getting new set" onclick=getMovieQuestions()>Lets Play !</div>
+                <div id="answers" class="col-md-12 border p-3 flex-grid-2x2 align-items-stretch">
+                    <button type="button" class="btn btn-secondary m-1">Lorem ipsum dolor sit amet, consectetur adipiscing consectetur adipiscing</button>
+                    <button type="button" class="btn btn-secondary m-1">consectetur adipiscing</button>
+                    <button type="button" class="btn btn-secondary m-1">Lorem ipsum dolor sit amet, consectetur adipiscing</button>
+                    <button type="button" class="btn btn-secondary m-1">Lorem ipsum dolor sit amet</button>
                 </div>
             </div>
         </div>
@@ -60,11 +67,6 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <h1>Custom Checkboxes</h1>
-                    <label class="container">One<input type="checkbox" checked="checked"><span class="checkmark"></span></label>
-                    <label class="container">Two<input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="container">Three<input type="checkbox"><span class="checkmark"></span></label>
-                    <label class="container">Four<input type="checkbox"><span class="checkmark"></span></label>
                     <button type="button" class="btn btn-primary">Next Question<i class="far fa-arrow-alt-circle-right pl-2"></i></button>
                 </div>
             </div>
@@ -78,7 +80,7 @@
     <script src="./assets/js/app.js"></script>
     <script src="./assets/js/movieArray.js"></script>
     <script src="./assets/js/async.min.js"></script>
-    <script src="./assets/js/omdb.js"></script>
+    <!-- <script src="./assets/js/omdb.js"></script> -->
 </body>
 
 </html>
