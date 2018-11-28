@@ -278,13 +278,13 @@ const checkIfItMatches = function(thistext)
     movieInfo(correctTitle);
 
     if (found === true) {
-      $('#movieScreen').html(`<h2>CORRECT! The answer is "${correctTitle}"</h2>`)
+      $('#movieScreen').html(`<div class="p-3">CORRECT<br> The answer is "${correctTitle}"</div><div id="actionBtns"></div>`);
     } else { 
-      $('#movieScreen').html(`<h2>INCORRECT. The answer is "${correctTitle}"</h2>`)
+      $('#movieScreen').html(`<div class="p-3">INCORRECT<br> The answer is "${correctTitle}"</div><div id="actionBtns"></div>`);
     } 
-    $('#movieScreen').append('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#movieDetails">Watch the Trailer</button>');
-    $('#movieScreen').append('<button id="Dice1" onclick="getMovieQuestions()" type="button" class="btn btn-primary" data-toggle="modal" >New Question Set</button>');
-    $('#movieScreen').append('<button id="Dice" onclick="listit()" type="button" class="btn btn-primary" data-toggle="modal" >Next Question</button>');
+    $('#movieScreen #actionBtns').append('<button type="button" class="btn btn-secondary m-1" data-toggle="modal" data-target="#movieDetails">Watch the Trailer</button>');
+    $('#movieScreen #actionBtns').append('<button id="Dice" onclick="listit()" type="button" class="btn btn-secondary m-1" data-toggle="modal" >Next Question</button>');
+    $('#movieScreen #actionBtns').append('<button id="Dice1" onclick="getMovieQuestions()" type="button" class="btn btn-secondary m-1" data-toggle="modal" >New Set of Questions</button>');
     
     // here the found is correct either true or false
     attemptedTitles.push(thistext);
