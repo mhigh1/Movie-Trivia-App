@@ -21,3 +21,16 @@ const verifyName = function () {
     }
   }
   $('#verify').on('click', verifyName);
+
+
+// JQuery Plugin for Toggle Switch
+$('#ckbGameMode').bootstrapSwitch({
+  on: 'On', // default 'On'
+  off: 'Off', // default 'Off'
+  onLabel: '', //default ''
+  offLabel: '', //default ''
+  same: false, // default false. same text for on/off and onLabel/offLabel
+  size: 'xs', // xs/sm/md/lg, default 'md'
+  onClass: 'primary', //success/primary/danger/warning/default, default 'primary'
+  offClass: 'secondary', //success/primary/danger/warning/default default 'default'
+});
