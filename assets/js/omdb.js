@@ -110,7 +110,8 @@ const removeThisElementById = function(MyId)
 // do initialze the game
 window.addEventListener('load', function () {
     // do stuff when the page has loaded
-    getMovieQuestions();toggleme(true);
+    getMovieQuestions();
+    toggleme(true);
 }, false);
 const getMovieQuestions = function() {
     const movieQuiz = [];
