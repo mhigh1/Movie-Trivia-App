@@ -259,7 +259,11 @@ const checkIfItMatches = function (thistext) {
   }
   if (found === true) {
     $('#movieScreen').empty();
-    $('#movieScreen').html(`<div><button type="button" class="btn btn-secondary m-1" data-toggle="modal" data-target="#movieDetails">Movie Info</button></div><div><button type="button" class="btn btn-secondary m-1" onclick="listit()">Next Question</button></div>`)
+    $('#movieScreen').html(`<div><button type="button" class="btn btn-secondary m-1" data-toggle="modal" data-target="#movieDetails">Movie Info</button></div><div><button type="button" class="btn btn-secondary m-1" onclick="listit()">Next Question</button></div>`);
+    correctCount = correctCount + 1;
+    $('#correct').text(`${correctCount}`);
+    lengthArray = attemptedAnswers.length;
+    $('#questions').text(`${lengthArray}`);
     //alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlotU);
   } else {
     $('#movieScreen').html(`<div><h5>Incorrect</h5></div><div><button type="button" class="btn btn-secondary m-1" onclick="listit()">Next Question</button></div>`)
@@ -270,8 +274,7 @@ const checkIfItMatches = function (thistext) {
   attemptedAnswers.push(found);
   attemptedPlots.push(TexttargetElement);
 
-  if (found == true) { correctCount = correctCount + 1; }
-  lengthArray = attemptedAnswers.length;
+  //lengthArray = attemptedAnswers.length;
   /* for(j=0;j<lengthArray;j++) 
    { 
      console.log(j+"|"+attemptedTitles[j]+"|"+attemptedAnswers[j]+"|"+attemptedPlots[j]);
@@ -285,6 +288,8 @@ const checkIfItMatches = function (thistext) {
   $('#SideCurtain').prepend('<text id="MyCounters"> Your Score : correct ' + correctCount + ' out of ' + lengthArray + '</text>');
 
   console.log(correctCount + "|" + lengthArray);
+
+  /*
   var thisButton = document.getElementById("Dice");
 
   // now that we have got the items selected for the first time set the on clisk function to reuse the
@@ -293,7 +298,7 @@ const checkIfItMatches = function (thistext) {
 
   thisButton.setAttribute("onclick", "listit()");
   thisButton.setAttribute("title", "select this for continuing on same set");
-
+*/
 
 
 
