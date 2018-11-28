@@ -155,7 +155,7 @@ const getMovieQuestions = function () {
 };
 
 listit = function () {
-$('#answers').empty();
+  $('#answers').empty();
   // get a random pair out of shortlist 
   // set the short list to zero size here 
   selectedFour.length = 0;
@@ -214,7 +214,7 @@ $('#answers').empty();
     // this button allows you to change the set of 10 
     removeThisElementById("Dice1");
     // now add a dice for getting a new set 
-    $('#answers').append(`<button class="p-3" title="select this for getting new set of 10" onclick="listit()" id="Dice1">ChangeSet</button>`);
+    //$('#answers').append(`<button class="p-3" title="select this for getting new set of 10" onclick="listit()" id="Dice1">ChangeSet</button>`);
   }
 };
 //Prep = function() { getMovieQuestions();  listit();};
@@ -257,8 +257,14 @@ const checkIfItMatches = function (thistext) {
 
 
   }
-  if (found === true) { alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlotU); }
-  else { alert(" better luck next time"); }
+  if (found === true) {
+    $('#movieScreen').empty();
+    $('#movieScreen').html(`<div><button type="button" class="btn btn-secondary m-1" data-toggle="modal" data-target="#movieDetails">Movie Info</button></div><div><button type="button" class="btn btn-secondary m-1" onclick="listit()">Next Question</button></div>`)
+    //alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlotU);
+  } else {
+    $('#movieScreen').html(`<div><h5>Incorrect</h5></div><div><button type="button" class="btn btn-secondary m-1" onclick="listit()">Next Question</button></div>`)
+    //alert(" better luck next time");
+  }
   // here the found is correct either true or false
   attemptedTitles.push(thistext);
   attemptedAnswers.push(found);
