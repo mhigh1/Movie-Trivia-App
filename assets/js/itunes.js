@@ -10,7 +10,7 @@ const movieInfo = function(movieName) {
     const trackName = movie.trackName;
     const previewUrl = movie.previewUrl;
 
-    $('#modalTitle').html(`<h2>${trackName}</h2>`);
+    $('#modalTitle').html(`${trackName}`);
     $('.modal-body').html(`<video src="${previewUrl}" type="video/x-m4v" controls="true" />`);
   }); 
 }
