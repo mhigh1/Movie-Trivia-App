@@ -219,9 +219,7 @@ const getMovieQuestions = function() {
         // remove the button if it exists 
         removeThisElementById(TempButtonId);
         // set the button with answer number appended for all buttons         
-        $('#answers').prepend(`<button class="p-3" onclick="OnSelection(this)" id="`+TempButtonId+`">${quizQuestions[selectedFour[ButtonsInd]].myTitle}</button>`);
-        
-
+        $('#answers').append(`<button id="${TempButtonId}" class="btn btn-secondary m-1" onclick="OnSelection(this)">${quizQuestions[selectedFour[ButtonsInd]].myTitle}</button>`);
        }
       // check and remove the dice for change set 
       // this button allows you to change the set of 10 
@@ -310,12 +308,8 @@ const checkIfItMatches = function(thistext)
 
 
 };
-const DisableSelectButtons = function()
-{
-  // here list all buttons and disable them for heavens sake !  will ya ?
- 
-  var thisandthat = $('*[id ^= "SelectThis"]');
-  // console.log(thisandthat) ; 
- 
-  for(i=0;i<thisandthat.length;i++) $(thisandthat[i]).prop('disabled',true);
+
+// Disable Buttons in #answers
+const DisableSelectButtons = function() {
+  $('#answers button').prop('disabled',true);
 };
