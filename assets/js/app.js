@@ -5,8 +5,17 @@ const resetModal = function() {
 }
 
 // CALLBACK FUNCTIONS //
-$('.modal-dialog .close').on('click', resetModal);
+//$('.modal-dialog .close').on('click', resetModal);
 
+// pause the video when th emodal closes
+$('#movieDetails').on('hide.bs.modal', function() {
+  $('.modal-body video').get(0).pause();
+});
+
+// Play the video when the modal opens
+$("#movieDetails").on('show.bs.modal', function() {
+  $('.modal-body video').get(0).play();
+});
 
 //Verify correct answer chosen on question
 const verifyName = function () {

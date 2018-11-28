@@ -1,4 +1,4 @@
-const movieInfo = function (movieName) {
+const movieInfo = function(movieName) {
   //get data from itunes api
   const queryURL = `https://itunes.apple.com/search?media=movie&entity=movie&term=${movieName}&attribute=featureFilmTerm`;
   $.ajax({
@@ -11,6 +11,6 @@ const movieInfo = function (movieName) {
     const previewUrl = movie.previewUrl;
 
     $('#modalTitle').html(`<h2>${trackName}</h2>`);
-    $('.modal-body').html(`<video src="${previewUrl}" type="video/x-m4v" controls="true" autoplay />`);
+    $('.modal-body').html(`<video src="${previewUrl}" type="video/x-m4v" controls="true" />`);
   }); 
 }

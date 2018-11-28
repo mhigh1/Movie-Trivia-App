@@ -207,7 +207,7 @@ const getMovieQuestions = function() {
 
       // now display the plot that was selected 
       // $('#movieScreen').html(`<p class="p-3" id="MyPlot">${quizQuestions[SelectedHonor].myPlot}</p>`);
-      $('#movieScreen').html(`<p class="p-3" id="MyPlot">`+getFiltered+`</p>`);
+      $('#movieScreen').html(`<span id="MyPlot" class="p-3" >`+getFiltered+`</span>`);
 
     
 
@@ -225,12 +225,12 @@ const getMovieQuestions = function() {
       // this button allows you to change the set of 10 
       removeThisElementById("Dice1");
       // now add a dice for getting a new set 
-      $('#answers').append(`<button class="p-3" title="select this for getting new set of 10" onclick="getMovieQuestions()" id="Dice1">ChangeSet</button>`);
+      //$('#answers').append(`<button class="p-3" title="select this for getting new set of 10" onclick="getMovieQuestions()" id="Dice1">ChangeSet</button>`);
      }
   };
-//Prep = function() { getMovieQuestions();  listit();};
-const OnSelection = function(link) 
-{
+
+  //Prep = function() { getMovieQuestions();  listit();};
+const OnSelection = function(link) {
   var tempText = link.innerText ; 
   // check if the answer matches and further update the conters etc.
   checkIfItMatches(tempText);
@@ -259,6 +259,8 @@ const checkIfItMatches = function(thistext)
         // selected four is holding just the index for the random 4 selected from 10
         // MatchPerc = DoesItMatch(TexttargetElement,quizQuestions[selectedFour[i]].myPlot);
         MatchPerc = DoesItMatch(quizQuestions[selectedFour[i]].myPlotU,TexttargetElement);
+        if ( ( TexttargetElement === quizQuestions[selectedFour[i]].myPlotU )  || ( MatchPerc > 75.0 ) ) 
+         { possibleCorrect = i ;}
 
         if ( ( thistext === quizQuestions[selectedFour[i]].myTitle ) && 
              ( ( TexttargetElement === quizQuestions[selectedFour[i]].myPlotU )  || ( MatchPerc > 75.0 ) )   )
@@ -271,10 +273,19 @@ const checkIfItMatches = function(thistext)
          
          
      }
-    if ( found ===  true ) 
-      { alert(" keep it up ! you are right about title " + thistext + " is indeed " + quizQuestions[selectedFour[located]].myPlotU  );} 
-    else 
-      { alert(" better luck next time"); } 
+
+    let correctTitle = quizQuestions[selectedFour[possibleCorrect]].myTitle;
+    movieInfo(correctTitle);
+
+    if (found === true) {
+      $('#movieScreen').html(`<h2>CORRECT! The answer is "${correctTitle}"</h2>`)
+    } else { 
+      $('#movieScreen').html(`<h2>INCORRECT. The answer is "${correctTitle}"</h2>`)
+    } 
+    $('#movieScreen').append('<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#movieDetails">Watch the Trailer</button>');
+    $('#movieScreen').append('<button id="Dice1" onclick="getMovieQuestions()" type="button" class="btn btn-primary" data-toggle="modal" >New Question Set</button>');
+    $('#movieScreen').append('<button id="Dice" onclick="listit()" type="button" class="btn btn-primary" data-toggle="modal" >Next Question</button>');
+    
     // here the found is correct either true or false
     attemptedTitles.push(thistext);
     attemptedAnswers.push(found);
@@ -292,7 +303,8 @@ const checkIfItMatches = function(thistext)
      DisableSelectButtons();
      removeThisElementById("MyCounters");
      
-     $('#SideCurtain').prepend('<text id="MyCounters"> Your Score : correct '+correctCount+' out of '+ lengthArray + '</text>');
+     //$('#SideCurtain').prepend('<text id="MyCounters"> Your Score : correct '+correctCount+' out of '+ lengthArray + '</text>');
+     $('#scoreCard').html(`<table><tbody><tr><th>Correct</th><td>${correctCount}</td></tr><tr><th>Questions</th><td>${lengthArray}</td></tr></tbody></table>`);
 
      console.log(correctCount+"|"+lengthArray);
      var thisButton=document.getElementById("Dice"); 
